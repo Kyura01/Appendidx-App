@@ -326,16 +326,18 @@ class _MainNavigatorState extends State<MainNavigator> {
             unselectedLabelStyle: GoogleFonts.poppins(fontSize: 11),
             showUnselectedLabels: true,
             elevation: 0,
-            items: const [
+            items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.menu_book_rounded),
                 activeIcon: Icon(Icons.menu_book_rounded, size: 28),
                 label: 'Edukasi',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.calculate_outlined),
-                activeIcon: Icon(Icons.calculate_rounded, size: 28),
-                label: 'Kalkulator',
+                icon: _selectedIndex == 1
+                    ? const Icon(Icons.calculate_outlined)
+                    : const SizedBox(height: 24),
+                activeIcon: const Icon(Icons.calculate_rounded, size: 28),
+                label: _selectedIndex == 1 ? 'Kalkulator' : '',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.info_outline_rounded),
@@ -361,7 +363,7 @@ class HalamanEdukasi extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Belajar Apendisitis 📚',
+          'Mengenal Usus Buntu',
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
         backgroundColor: Colors.transparent,
@@ -401,7 +403,7 @@ class HalamanEdukasi extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Halo, Nakes! 👋',
+                          'Halo, Teman Sehat!',
                           style: GoogleFonts.poppins(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -410,7 +412,7 @@ class HalamanEdukasi extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Mari segarkan kembali ingatan kita tentang Apendisitis sebelum melakukan diagnosa.',
+                          'Mari pelajari lebih lanjut tentang penyakit Apendisitis (Usus Buntu) dan pantau kondisi kesehatan Anda.',
                           style: GoogleFonts.poppins(
                             fontSize: 13,
                             color: Colors.white.withValues(alpha: 0.9),
@@ -601,13 +603,6 @@ class _HalamanKalkulatorState extends State<HalamanKalkulator> {
     return count;
   }
 
-  Color _getScoreColor(int skor) {
-    if (skor <= 4) return const Color(0xFF81C784);
-    if (skor <= 6) return const Color(0xFFFFB74D);
-    if (skor <= 8) return const Color(0xFFFF8A65);
-    return const Color(0xFFE57373);
-  }
-
   void _resetAll() {
     setState(() {
       _migrasiNyeri = false;
@@ -726,7 +721,9 @@ class _HalamanKalkulatorState extends State<HalamanKalkulator> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
-              _showHasilBottomSheet(_currentScore);
+              int finalScore = _currentScore;
+              _showHasilBottomSheet(finalScore);
+              _resetAll();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF81C784),
@@ -944,8 +941,6 @@ class _HalamanKalkulatorState extends State<HalamanKalkulator> {
 
   @override
   Widget build(BuildContext context) {
-    final scoreColor = _getScoreColor(_currentScore);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -965,106 +960,7 @@ class _HalamanKalkulatorState extends State<HalamanKalkulator> {
       ),
       body: Column(
         children: [
-          // Live score indicator
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeInOut,
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: scoreColor.withValues(alpha: 0.15),
-                    blurRadius: 15,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-                border: Border.all(
-                  color: scoreColor.withValues(alpha: 0.3),
-                  width: 1.5,
-                ),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Skor Saat Ini',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFF55605C),
-                        ),
-                      ),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: scoreColor.withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Text(
-                          '$_currentScore / 10',
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: scoreColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: TweenAnimationBuilder<double>(
-                      tween: Tween(begin: 0, end: _currentScore / 10),
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                      builder: (context, value, _) {
-                        return LinearProgressIndicator(
-                          value: value,
-                          minHeight: 10,
-                          backgroundColor: const Color(0xFFF0F4F2),
-                          valueColor: AlwaysStoppedAnimation<Color>(scoreColor),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '$_activeCount / 8 kriteria aktif',
-                        style: GoogleFonts.poppins(fontSize: 11, color: Colors.grey),
-                      ),
-                      Text(
-                        _currentScore <= 4
-                            ? 'Rendah'
-                            : _currentScore <= 6
-                                ? 'Sedang'
-                                : _currentScore <= 8
-                                    ? 'Tinggi'
-                                    : 'Definitif',
-                        style: GoogleFonts.poppins(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: scoreColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
+
 
           Expanded(
             child: SingleChildScrollView(
