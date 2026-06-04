@@ -1,17 +1,23 @@
 # appendidx
 
-A new Flutter project.
+## Deskripsi
 
-## Getting Started
+Aplikasi berbasis Flutter untuk menyajikan konten Appendix secara ringkas dan mudah diakses di berbagai platform.
 
-This project is a starting point for a Flutter application.
+## Ringkasan
 
-A few resources to get you started if this is your first Flutter project:
+- Target platform: Android, iOS, Web, Windows, macOS, Linux
+- Bahasa & framework: Dart + Flutter
+- Fokus: antarmuka sederhana untuk menampilkan konten
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Struktur Direktori Utama
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [lib/main.dart](lib/main.dart): titik masuk aplikasi
+- [assets/](assets/): aset aplikasi
+- [android/](android/), [ios/](ios/), [web/](web/), [windows/](windows/), [macos/](macos/), [linux/](linux/): target build per platform
+
+## Menjalankan Secara Lokal
+
+1. Pastikan Flutter SDK sudah terpasang dan terkonfigurasi.
+2. Jalankan `flutter pub get`.
+3. Jalankan `flutter run`.

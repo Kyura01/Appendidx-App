@@ -337,7 +337,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                     ? const Icon(Icons.calculate_outlined)
                     : const SizedBox(height: 24),
                 activeIcon: const Icon(Icons.calculate_rounded, size: 28),
-                label: _selectedIndex == 1 ? 'Kalkulator' : '',
+                label: 'Kalkulator',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.info_outline_rounded),
@@ -1490,14 +1490,16 @@ class HalamanTentang extends StatelessWidget {
                   'Aplikasi ini dibuat untuk tujuan EDUKASI dan SKRINING AWAL saja. AppendiDx bukan pengganti penilaian klinis profesional oleh dokter. Keputusan diagnosis dan tatalaksana akhir harus selalu dilakukan oleh tenaga medis yang berwenang berdasarkan pemeriksaan klinis menyeluruh.',
             ),
 
-            // _buildInfoCard(
-            //   icon: Icons.code_rounded,
-            //   iconColor: const Color(0xFF64B5F6),
-            //   title: 'Pengembang',
-            //   content:
-            //       'Dikembangkan sebagai proyek edukasi kesehatan menggunakan Flutter Framework.\n\n'
-            //       '© 2026 AppendiDx. Dibuat dengan ❤️ untuk tenaga kesehatan Indonesia.',
-            // ),
+            _buildInfoCard(
+              icon: Icons.group_rounded,
+              iconColor: const Color(0xFF64B5F6),
+              title: 'Tentang Kami',
+              content:
+                  'Anggota kelompok :\n'
+                  '• Muthia Talitha Shabira Unyei (2358011003)\n'
+                  '• Eartha Anindya Wisesa (2358011016)\n'
+                  '• Virginia Lestari (2358011025)\n\n',
+            ),
 
             const SizedBox(height: 20),
           ],
