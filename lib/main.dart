@@ -7,6 +7,19 @@ void main() {
   runApp(const AppendiDxApp());
 }
 
+Widget _buildRoundedLogo({required double size}) {
+  final radius = size * 0.23;
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(radius),
+    child: Image.asset(
+      'assets/Logo.jpeg',
+      width: size,
+      height: size,
+      fit: BoxFit.cover,
+    ),
+  );
+}
+
 class AppendiDxApp extends StatelessWidget {
   const AppendiDxApp({super.key});
 
@@ -164,12 +177,8 @@ class _SplashScreenState extends State<SplashScreen>
                                     ),
                                   ],
                                 ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.local_hospital_rounded,
-                                    size: 40,
-                                    color: Color(0xFF81C784),
-                                  ),
+                                child: Center(
+                                  child: _buildRoundedLogo(size: 64),
                                 ),
                               ),
                             ),
@@ -1525,12 +1534,8 @@ class HalamanTentang extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.local_hospital_rounded,
-                        size: 40,
-                        color: Color(0xFF81C784),
-                      ),
+                    child: Center(
+                      child: _buildRoundedLogo(size: 64),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -1589,14 +1594,14 @@ class HalamanTentang extends StatelessWidget {
                   'Aplikasi ini dibuat untuk tujuan EDUKASI dan SKRINING AWAL saja. AppendiDx bukan pengganti penilaian klinis profesional oleh dokter. Keputusan diagnosis dan tatalaksana akhir harus selalu dilakukan oleh tenaga medis yang berwenang berdasarkan pemeriksaan klinis menyeluruh.',
             ),
 
-            _buildInfoCard(
-              icon: Icons.code_rounded,
-              iconColor: const Color(0xFF64B5F6),
-              title: 'Pengembang',
-              content:
-                  'Dikembangkan sebagai proyek edukasi kesehatan menggunakan Flutter Framework.\n\n'
-                  '© 2026 AppendiDx. Dibuat dengan ❤️ untuk tenaga kesehatan Indonesia.',
-            ),
+            // _buildInfoCard(
+            //   icon: Icons.code_rounded,
+            //   iconColor: const Color(0xFF64B5F6),
+            //   title: 'Pengembang',
+            //   content:
+            //       'Dikembangkan sebagai proyek edukasi kesehatan menggunakan Flutter Framework.\n\n'
+            //       '© 2026 AppendiDx. Dibuat dengan ❤️ untuk tenaga kesehatan Indonesia.',
+            // ),
 
             const SizedBox(height: 20),
           ],
